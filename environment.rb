@@ -5,8 +5,8 @@ require 'git'
 require 'bluecloth'
 require 'rubypants'
 
-require 'extensions'
-require 'page'
+require './extensions'
+require './page'
 
 GIT_REPO = ENV['HOME'] + '/wiki'
 HOMEPAGE = 'home'

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
-require 'environment'
+require './environment'
 require 'sinatra'
 require 'sinatra/content_for'
 
