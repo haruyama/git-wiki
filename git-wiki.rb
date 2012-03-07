@@ -150,8 +150,9 @@ get '/a/search' do
   @titles = search_on_filename(@search)
   @grep = $repo.grep(@search, nil, :ignore_case => true)
   [@titles, @grep].each do |x|
-    puts x.inspect
-    x.values.each {|v| v.each { |w| w.last.gsub!(@search, "<mark>#{escape_html @search}</mark>") } }
+    x.values.each do |v| 
+      v.each { |w| w.last.gsub!(@search, "<mark>#{escape_html @search}</mark>") } 
+    end
   end
   show :search, 'Search Results'
 end
@@ -188,7 +189,8 @@ def search_on_filename(search)
   pagenames.each do |page|
     next unless page.include? needle
     current_branch_sha1 = $repo.log.first
-    titles["#{current_branch_sha1}:#{page}"] = page.map {|page| [0, page] }
+    # unfreeze the String page by creating a "new" one
+    titles["#{current_branch_sha1}:#{page}"] = [[0, "#{page}"]] 
   end
   titles
 end
