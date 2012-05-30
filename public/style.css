@@ -14,7 +14,7 @@ body {
   /* one centered column of max 600px */
   max-width: 600px; margin: 0em auto; padding: 2em;
   font-family: "Cantarell", "Droid Sans", Arial, "Deja Vu Sans", "Bitstream Vera Sans", sans-serif;
-  font-size: 15px; line-height: 1.5em;
+  font-size: 15px; line-height: 25px;
 }
 
 
@@ -27,6 +27,7 @@ code, pre { font-family: "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", "Incon
 h1 { color: #333; /* margin: 24px 0 8px 0; */
   font-weight: normal;
   font-size: 2.6em;
+  margin-top: 1.5em;
   margin-bottom: 1em;
 }
 
@@ -64,8 +65,18 @@ li ul, li ol { padding: 0 0 0 1.4em; } /* no vertical padding for nested lists *
 
 .clearer { clear: both; }
 
-article > h1 { font-size: 160% }
-article > h2 { font-size: 110%; color: #333; }
+article > h1 { font-size: 160%; margin: 1.5em 0 1em; }
+article > h2 { font-size: 110%; color: #333; margin: 1.5em 0 1em; }
+
+/* style external links 
+article a[href^="http://"]:after,
+article a[href^="https://"]:after {
+  background-image: url(/external-link.png);
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  content: '';
+}*/
 
 .delta {
   font-size: 1.1em;
@@ -178,3 +189,5 @@ footer {
 }
 
 #search_field { border: 1px solid #ccc;  color: #999; max-width: 100%; }
+
+
