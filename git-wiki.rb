@@ -12,7 +12,7 @@ get('/') { redirect "/#{HOMEPAGE}" }
 get '/:page' do
   @menu = Page.new("menu")
   @page = Page.new(params[:page])
-  @page.tracked? ? show(:show, @page.name) : redirect('/e/' + @page.name)
+  @page.tracked? ? show(:show, @page.uri_encoded_name) : redirect('/e/' + @page.uri_encoded_name)
 end
 
 get '/:page/raw' do
@@ -23,7 +23,7 @@ end
 get '/:page/append' do
   @page = Page.new(params[:page])
   @page.update(@page.raw_body + "\n\n" + params[:text], params[:message])
-  redirect '/' + @page.name
+  redirect '/' + @page.uri_encoded_name
 end
 
 get '/e/:page' do
@@ -36,7 +36,7 @@ post '/e/:page' do
   @menu = Page.new("menu")
   @page = Page.new(params[:page])
   @page.update(params[:body], params[:message])
-  redirect '/' + @page.name
+  redirect '/' + @page.uri_encoded_name
 end
 
 post '/eip/:page' do
@@ -150,8 +150,8 @@ get '/a/search' do
   @titles = search_on_filename(@search)
   @grep = $repo.grep(@search, nil, :ignore_case => true)
   [@titles, @grep].each do |x|
-    x.values.each do |v| 
-      v.each { |w| w.last.gsub!(@search, "<mark>#{escape_html @search}</mark>") } 
+    x.values.each do |v|
+      v.each { |w| w.last.gsub!(@search, "<mark>#{escape_html @search}</mark>") }
     end
   end
   show :search, 'Search Results'
@@ -173,7 +173,7 @@ end
 get '/a/file/delete/:page/:file.:ext' do
   @page = Page.new(params[:page])
   @page.delete_file(params[:file] + '.' + params[:ext])
-  redirect '/e/' + @page.name
+  redirect '/e/' + @page.uri_encoded_name
 end
 
 get '/_attachment/:page/:file.:ext' do
@@ -190,7 +190,7 @@ def search_on_filename(search)
     next unless page.include? needle
     current_branch_sha1 = $repo.log.first
     # unfreeze the String page by creating a "new" one
-    titles["#{current_branch_sha1}:#{page}"] = [[0, "#{page}"]] 
+    titles["#{current_branch_sha1}:#{page}"] = [[0, "#{page}"]]
   end
   titles
 end

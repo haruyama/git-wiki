@@ -1,3 +1,5 @@
+require 'uri'
+
 class Page
   attr_reader :name
   ATTACHMENTS_DIR = '_attachments'
@@ -181,6 +183,10 @@ class Page
       else                     "%.2f MB"  % (size / (1024 * 1024.0))
       end.sub(/([0-9])\.?0+ /, '\1 ' )
     end
+  end
+
+  def uri_encoded_name
+    URI.encode(@name)
   end
 
 end
