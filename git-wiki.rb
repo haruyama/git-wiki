@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
 
 require 'fileutils'
 require './environment'
@@ -12,7 +13,7 @@ get('/') { redirect "/#{HOMEPAGE}" }
 get '/:page' do
   @menu = Page.new("menu")
   @page = Page.new(params[:page])
-  @page.tracked? ? show(:show, @page.uri_encoded_name) : redirect('/e/' + @page.uri_encoded_name)
+  @page.tracked? ? show(:show, @page.name) : redirect('/e/' + @page.uri_encoded_name)
 end
 
 get '/:page/raw' do
@@ -67,7 +68,7 @@ end
 get '/a/list' do
   pages = $repo.log.first.gtree.children
   @menu = Page.new("menu")
-  @pages = pages.select { |f,bl| f[0,1] != '_'}.sort.map { |name, blob| Page.new(name) } rescue []
+  @pages = pages.select { |f,bl| f[0,1] != '_'}.sort.map { |name, blob| Page.new(trim_git_name(name)) }
   show(:list, 'Listing pages')
 end
 
@@ -184,7 +185,7 @@ end
 # support methods
 def search_on_filename(search)
   needle = search.as_wiki_link
-  pagenames = $repo.log.first.gtree.children.keys # our haystack
+  pagenames = map trim_git_name $repo.log.first.gtree.children.keys # our haystack
   titles = {}
   pagenames.each do |page|
     next unless page.include? needle
@@ -214,6 +215,16 @@ def touchfile
     f.puts($repo.current_branch)
     f.close
     $repo.add('.meta')
+  end
+end
+
+def trim_git_name(n)
+  if n[0] == '"'
+    n[1..-2].dup.gsub(/\\(\d{3})/) {
+      $1.oct.chr
+    }
+  else
+    n
   end
 end
 
