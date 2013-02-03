@@ -219,7 +219,7 @@ def touchfile
 end
 
 def trim_git_name(n)
-  if n[0] == '"'
+  if n[0] == '"' && n[-1] == '"'
     n[1..-2].dup.gsub(/\\(\d{3})/) {
       $1.oct.chr
     }
