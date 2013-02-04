@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class String
   # Pre-formatted code blocks are used for writing about programming or markup
   # source code. Rather than forming normal paragraphs, the lines of a code

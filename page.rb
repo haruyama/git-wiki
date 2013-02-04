@@ -1,4 +1,6 @@
+# -*- encoding: utf-8 -*-
 require 'uri'
+require 'grit'
 
 class Page
   attr_reader :name
@@ -21,17 +23,17 @@ class Page
     @body ||= RubyPants.new(BlueCloth.new(raw_body.wiki_linked, :tables => true).to_html).to_html
   end
 
-  def branch_name
-    $repo.current_branch
-  end
+#   def branch_name
+#     $repo.current_branch
+#   end
 
   def updated_at
-    commit.committer_date
+    commit.committed_date
   end
 
   def raw_body
     if @rev
-      @raw_body ||= blob.contents
+      @raw_body ||= blob.data.force_encoding('UTF-8')
     else
       @raw_body ||= File.exists?(filename) ? File.read(filename) : ''
     end
@@ -53,24 +55,24 @@ class Page
   end
 
   def tracked?
-    $repo.ls_files.keys.include?(@name)
+    $repo.tree(@rev || 'master').contents.map{|c| c.name}.include?(@name)
   end
 
   def history
     return nil unless tracked?
-    @history ||= $repo.log.path(@name)
+    @history ||= $repo.log(@rev || 'master', @name)
   end
 
   def delta(rev)
-    $repo.diff(previous_commit, rev).path(@name).patch
+    $repo.diff(rev, @rev || 'master', @name).first.diff
   end
 
   def commit
-    @commit ||= $repo.log.object(@rev || 'master').path(@name).first
+    @commit ||= $repo.log(@rev || 'master', @name, :max_count => 1).first
   end
 
   def previous_commit
-    @previous_commit ||= $repo.log(2).object(@rev || 'master').path(@name).to_a[1]
+    @previous_commit ||= $repo.log(@rev || 'master', @name, :max_count => 1, :skip => 1).first
   end
 
   def next_commit
@@ -92,7 +94,7 @@ class Page
   end
 
   def blob
-    @blob ||= ($repo.gblob(@rev + ':' + @name))
+    @blob ||= $repo.tree(@rev || 'master')./(@name)
   end
 
   # save a file into the _attachments directory

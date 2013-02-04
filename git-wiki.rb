@@ -66,9 +66,9 @@ end
 # application paths (/a/ namespace)
 
 get '/a/list' do
-  pages = $repo.log.first.gtree.children
+  pagenames = $repo.tree.contents.map { |c| c.name}
   @menu = Page.new("menu")
-  @pages = pages.select { |f,bl| f[0,1] != '_'}.sort.map { |name, blob| Page.new(name) }
+  @pages = pagenames.select { |name| name[0] != '_'}.sort.map { |name| Page.new(name) }
   show(:list, 'Listing pages')
 end
 
@@ -185,9 +185,8 @@ end
 # support methods
 def search_on_filename(search)
   needle = search.as_wiki_link
-  pagenames = $repo.log.first.gtree.children.keys.map{|n| n.encode('UTF-8')}
-  p pagenames
   titles = {}
+  pagenames = $repo.tree.contents.map { |c| c.name}
   pagenames.each do |page|
     next unless page.include? needle
     current_branch_sha1 = $repo.log.first
@@ -218,3 +217,14 @@ def touchfile
     $repo.add('.meta')
   end
 end
+
+def trim_git_name(name)
+  if name[0] == '"' && name[-1] == '"'
+    name[1..-2].dup.gsub(/\\(\d{3})/) {
+      $1.oct.chr
+    }
+  else
+    name
+  end
+end
+
