@@ -68,7 +68,7 @@ end
 get '/a/list' do
   pages = $repo.log.first.gtree.children
   @menu = Page.new("menu")
-  @pages = pages.select { |f,bl| f[0,1] != '_'}.sort.map { |name, blob| Page.new(trim_git_name(name)) }
+  @pages = pages.select { |f,bl| f[0,1] != '_'}.sort.map { |name, blob| Page.new(name) }
   show(:list, 'Listing pages')
 end
 
@@ -185,7 +185,8 @@ end
 # support methods
 def search_on_filename(search)
   needle = search.as_wiki_link
-  pagenames = map trim_git_name $repo.log.first.gtree.children.keys # our haystack
+  pagenames = $repo.log.first.gtree.children.keys.map{|n| n.encode('UTF-8')}
+  p pagenames
   titles = {}
   pagenames.each do |page|
     next unless page.include? needle
@@ -217,14 +218,3 @@ def touchfile
     $repo.add('.meta')
   end
 end
-
-def trim_git_name(n)
-  if n[0] == '"' && n[-1] == '"'
-    n[1..-2].dup.gsub(/\\(\d{3})/) {
-      $1.oct.chr
-    }
-  else
-    n
-  end
-end
-
