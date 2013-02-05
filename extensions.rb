@@ -9,7 +9,7 @@ class String
   MARKDOWN_PRE = /^\ {4}|\t/
 
   # Match [[Page]] or even [[a page]] just like in wikipedia and gollum
-  GIT_WIKI_SIMPLE_LINK = /\[\[([\w\s\+\-\_]+)\]\]/
+  GIT_WIKI_SIMPLE_LINK = /\[\[([\w\s\+\-]+)\]\]/
 
   # Match [[Texas|Lone Star state]] just like wikipedia and unlike gollum
   # (gollum reverses the order of things)
@@ -19,7 +19,7 @@ class String
   #   http(s) or ftp or file then a colon and then some number of slashes,
   #   numbers, chars, question marks, dots (very important)...
   # It is far from perfect; it is good enough for now.
-  GIT_WIKI_OBVIOUS_URI = /(https?|ftps?|file)\:[\/\\\w\d\/\-\+\?\!\&\=\.\_\@\%\&\*\~\#]+/
+  GIT_WIKI_OBVIOUS_URI = /(https?|ftps?|file)\:[\/\\\w\-\+\?\!\=\.\@\%\&\*\~\#]+/
 
   def wiki_linked
     with_links = ""

@@ -1,5 +1,3 @@
-require 'uri'
-
 class Page
   attr_reader :name
   ATTACHMENTS_DIR = '_attachments'
@@ -18,7 +16,7 @@ class Page
   end
 
   def body
-    @body ||= RubyPants.new(BlueCloth.new(raw_body.wiki_linked, :tables => true).to_html).to_html
+    @body ||= RubyPants.new(render(raw_body.wiki_linked)).to_html
   end
 
   def branch_name
@@ -88,7 +86,7 @@ class Page
 
   def version(rev)
     data = blob.contents
-    RubyPants.new(BlueCloth.new(data.wiki_linked).to_html).to_html
+    RubyPants.new(render(data.wiki_linked)).to_html
   end
 
   def blob
@@ -187,6 +185,13 @@ class Page
 
   def uri_encoded_name
     URI.encode(@name)
+  end
+
+  def render(content)
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:filter_html => true, :safe_links_only => true),
+                                          :autolink => true, :space_after_headers => true, :tables => true)
+
+    @markdown.render(content)
   end
 
 end
