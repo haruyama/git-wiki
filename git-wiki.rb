@@ -103,42 +103,6 @@ get '/a/history' do
   show :branch_history, "Branch History"
 end
 
-get '/a/revert_branch/:sha' do
-  $repo.with_temp_index do
-    $repo.read_tree params[:sha]
-    $repo.checkout_index
-    $repo.commit('reverted branch')
-  end
-  redirect '/a/history'
-end
-
-get '/a/merge_branch/:branch' do
-  $repo.merge(params[:branch])
-  redirect '/' + HOMEPAGE
-end
-
-get '/a/delete_branch/:branch' do
-  $repo.branch(params[:branch]).delete
-  redirect '/a/branches'
-end
-
-post '/a/new_branch' do
-  $repo.branch(params[:branch]).create
-  $repo.checkout(params[:branch])
-  if params[:type] == 'blank'
-    # clear out the branch
-    $repo.chdir do
-      Dir.glob("*").each do |f|
-        File.unlink(f)
-        $repo.remove(f)
-      end
-      touchfile
-      $repo.commit('clean branch start')
-    end
-  end
-  redirect '/a/branches'
-end
-
 post '/a/new_remote' do
   $repo.add_remote(params[:branch_name], params[:branch_url])
   $repo.fetch(params[:branch_name])
@@ -149,7 +113,7 @@ get '/a/search' do
   @menu = Page.new("menu")
   @search = params[:search]
   @titles = search_on_filename(@search)
-  @grep = $repo.grep(@search, nil, :ignore_case => true)
+  @grep = {}
   [@titles, @grep].each do |x|
     x.values.each do |v|
       v.each { |w| w.last.gsub!(@search, "<mark>#{escape_html @search}</mark>") }
@@ -188,6 +152,7 @@ def search_on_filename(search)
   titles = {}
   pagenames = $repo.tree.contents.map { |c| c.name}
   pagenames.each do |page|
+    page.force_encoding('UTF-8')
     next unless page.include? needle
     current_branch_sha1 = $repo.log.first
     # unfreeze the String page by creating a "new" one
@@ -207,24 +172,3 @@ def show(template, title)
   @title = title
   erb(("#{template}.html").to_sym)
 end
-
-def touchfile
-  # adds meta file to repo so we have somthing to commit initially
-  $repo.chdir do
-    f = File.new(".meta",  "w+")
-    f.puts($repo.current_branch)
-    f.close
-    $repo.add('.meta')
-  end
-end
-
-def trim_git_name(name)
-  if name[0] == '"' && name[-1] == '"'
-    name[1..-2].dup.gsub(/\\(\d{3})/) {
-      $1.oct.chr
-    }
-  else
-    name
-  end
-end
-

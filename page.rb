@@ -43,13 +43,9 @@ class Page
     File.open(filename, 'w') { |f| f << content }
     commit_message = tracked? ? "edited #{@name}" : "created #{@name}"
     commit_message += ' : ' + message if message && message.length > 0
-    begin
-      $repo.add(@name)
-      $repo.commit(commit_message)
-    rescue
-      # FIXME I don't like this, why is there a catchall here?
-      nil
-    end
+    index = $repo.index
+    index.add(filename, @name)
+    index.commit(commit_message)
     @body = nil; @raw_body = nil
     @body
   end
