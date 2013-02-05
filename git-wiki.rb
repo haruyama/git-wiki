@@ -5,6 +5,12 @@ require 'fileutils'
 require './environment'
 require 'sinatra'
 require 'sinatra/content_for'
+require 'uri'
+
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
 
 get('/') { redirect "/#{HOMEPAGE}" }
 
@@ -152,7 +158,7 @@ get '/a/search' do
   @grep = $repo.grep(@search, nil, :ignore_case => true)
   [@titles, @grep].each do |x|
     x.values.each do |v|
-      v.each { |w| w.last.gsub!(@search, "<mark>#{escape_html @search}</mark>") }
+      v.each { |w| w.last.gsub!(@search, "<mark>#{h @search}</mark>") }
     end
   end
   show :search, 'Search Results'
@@ -186,7 +192,6 @@ end
 def search_on_filename(search)
   needle = search.as_wiki_link
   pagenames = $repo.log.first.gtree.children.keys.map{|n| n.encode('UTF-8')}
-  p pagenames
   titles = {}
   pagenames.each do |page|
     next unless page.include? needle
@@ -199,7 +204,7 @@ end
 
 # returns an absolute url
 def page_url(page)
-  "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/#{page}"
+  "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/#{URI.encode(page)}"
 end
 
 private

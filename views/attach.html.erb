@@ -2,7 +2,7 @@
 
 <section>
   <h2>New File Upload</h2>
-  <form method="post" action="/a/file/upload/<%= @page.name %>"
+  <form method="post" action="/a/file/upload/<%= h @page.uri_encoded_name %>"
         class="niceform" enctype="multipart/form-data">
     <label for="name">name</label>
     <input type="text" name="name" />

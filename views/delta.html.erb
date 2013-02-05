@@ -4,16 +4,16 @@
   <link rel="stylesheet" href="/sh_style.css" type="text/css" media="screen" />
 <% end %>
 
-<h1>Diff of <a href="/<%= @page.name %>"><%= @page.name %></a></h1>
+<h1>Diff of <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.uri_encoded_name %></a></h1>
 
 <nav class="sub_nav">
-  <a href="/a/patch/<%= @page.name %>/<%= params[:rev] %>" class="nav_link">patch file</a> &bull;
-  <a href="/h/<%= @page.name %>" class="nav_link">history</a> &bull;
-  <a href="/e/<%= @page.name %>" class="nav_link">edit</a>
+  <a href="/a/patch/<%= h @page.uri_encoded_name %>/<%= h params[:rev] %>" class="nav_link">patch file</a> &bull;
+  <a href="/h/<%= h @page.uri_encoded_name %>" class="nav_link">history</a> &bull;
+  <a href="/e/<%= h @page.uri_encoded_name %>" class="nav_link">edit</a>
 </nav>
 
 <section class="content">
-  <pre class="sh_diff"><%= @page.delta(params[:rev]) %></pre>
+  <pre class="sh_diff"><%= h @page.delta(params[:rev]) %></pre>
 </section>
 
 <script>

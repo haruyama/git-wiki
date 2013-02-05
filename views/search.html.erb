@@ -1,17 +1,17 @@
 <article>
   <aside>
     <section class="details">
-      <p><%= @titles.size %> titles matching</p>
-      <p><%= @grep.size %> pages contain match</p>
-      <p><%= @grep.map { |g| g[1].size }.inject { |acc, n| acc + n } %> results</p>
+      <p><%= h @titles.size %> titles matching</p>
+      <p><%= h @grep.size %> pages contain match</p>
+      <p><%= h @grep.map { |g| g[1].size }.inject { |acc, n| acc + n } %> results</p>
     </section>
-    <p>Create <a href="/<%= @search.as_wiki_link %>"><%= @search %></a>.</p>
+    <p>Create <a href="/<%= h @search.as_wiki_link %>"><%= h @search %></a>.</p>
   </aside>
 
   <% if @grep.empty? %>
     <h1>No pages match</h1>
   <% else %>
-    <h1>Results for '<span class="search_term"><%= @search %></span>'</h1>
+    <h1>Results for '<span class="search_term"><%= h @search %></span>'</h1>
   <% end %>
 
   <section class="results">
@@ -21,8 +21,8 @@
           <% (sha, file) = sha.split(':') %>
           <% arr_match.each do |line, match| %>
             <div class="match">
-              <tt><%= match %></tt><br />
-              &mdash; <a href="/<%= file %>"><%= file %></a>, line <%= line %> (<%= $repo.object(sha).name %>)
+              <tt><%= h match %></tt><br />
+              &mdash; <a href="/<%= h file %>"><%= h file %></a>, line <%= h line %> (<%= h $repo.object(sha).name %>)
             </div>
           <% end %>
         </div>

@@ -6,12 +6,12 @@
     <% next if b.full == 'origin/master' %>
     <li>
     <% if b.current %>
-      <strong><%= b.full %></strong>
+      <strong><%= h b.full %></strong>
     <% else %>
-      <%= b.full %>
-      <a href="/a/branch/<%= b.name %>">switch</a> &bull;
-      <a href="/a/merge_branch/<%= b.name %>">merge</a>
-      <!-- &bull; <a href="/a/delete_branch/<%= b.name %>">delete</a> -->
+      <%= h b.full %>
+      <a href="/a/branch/<%= h b.name %>">switch</a> &bull;
+      <a href="/a/merge_branch/<%= h b.name %>">merge</a>
+      <!-- &bull; <a href="/a/delete_branch/<%= h b.name %>">delete</a> -->
     <% end %>
     </li>
   <% end %>
