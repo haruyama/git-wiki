@@ -5,11 +5,25 @@ require 'fileutils'
 require './environment'
 require 'sinatra'
 require 'sinatra/content_for'
-require 'uri'
+require 'rack/csrf'
+
+configure do
+  set :app_file, __FILE__
+  use Rack::Session::Cookie, :secret => SESSION_SECRET
+  use Rack::Csrf, :raise => true
+end
 
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
+
+  def csrf_token
+    Rack::Csrf.csrf_token(env)
+  end
+
+  def csrf_tag
+    Rack::Csrf.csrf_tag(env)
+  end
 end
 
 get('/') { redirect "/#{HOMEPAGE}" }
@@ -27,12 +41,6 @@ get '/:page/raw' do
   send_data @page.raw_body, :type => 'text/plain', :disposition => 'inline'
 end
 
-get '/:page/append' do
-  @page = Page.new(params[:page])
-  @page.update(@page.raw_body + "\n\n" + params[:text], params[:message])
-  redirect '/' + @page.uri_encoded_name
-end
-
 get '/e/:page' do
   @menu = Page.new("menu")
   @page = Page.new(params[:page])
@@ -44,12 +52,6 @@ post '/e/:page' do
   @page = Page.new(params[:page])
   @page.update(params[:body], params[:message])
   redirect '/' + @page.uri_encoded_name
-end
-
-post '/eip/:page' do
-  @page = Page.new(params[:page])
-  @page.update(params[:body])
-  @page.body
 end
 
 get '/h/:page' do
@@ -109,25 +111,6 @@ get '/a/history' do
   show :branch_history, "Branch History"
 end
 
-get '/a/revert_branch/:sha' do
-  $repo.with_temp_index do
-    $repo.read_tree params[:sha]
-    $repo.checkout_index
-    $repo.commit('reverted branch')
-  end
-  redirect '/a/history'
-end
-
-get '/a/merge_branch/:branch' do
-  $repo.merge(params[:branch])
-  redirect '/' + HOMEPAGE
-end
-
-get '/a/delete_branch/:branch' do
-  $repo.branch(params[:branch]).delete
-  redirect '/a/branches'
-end
-
 post '/a/new_branch' do
   $repo.branch(params[:branch]).create
   $repo.checkout(params[:branch])
@@ -156,11 +139,6 @@ get '/a/search' do
   @search = params[:search]
   @titles = search_on_filename(@search)
   @grep = $repo.grep(@search, nil, :ignore_case => true)
-  [@titles, @grep].each do |x|
-    x.values.each do |v|
-      v.each { |w| w.last.gsub!(@search, "<mark>#{h @search}</mark>") }
-    end
-  end
   show :search, 'Search Results'
 end
 
@@ -177,7 +155,7 @@ post '/a/file/upload/:page' do
   redirect '/e/' + @page.name
 end
 
-get '/a/file/delete/:page/:file.:ext' do
+post '/a/file/delete/:page/:file.:ext' do
   @page = Page.new(params[:page])
   @page.delete_file(params[:file] + '.' + params[:ext])
   redirect '/e/' + @page.uri_encoded_name

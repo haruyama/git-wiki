@@ -136,7 +136,7 @@ class Page
 
   def attachments
     if File.exists?(attach_dir)
-      return Dir.glob(File.join(attach_dir, '*')).map { |f| Attachment.new(f, unwiki(@name)) }
+      return Dir.glob(File.join(attach_dir, '*')).map { |f| Attachment.new(f, @name) }
     else
       false
     end

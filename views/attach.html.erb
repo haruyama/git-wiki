@@ -4,6 +4,7 @@
   <h2>New File Upload</h2>
   <form method="post" action="/a/file/upload/<%= h @page.uri_encoded_name %>"
         class="niceform" enctype="multipart/form-data">
+    <%= csrf_tag %>
     <label for="name">name</label>
     <input type="text" name="name" />
     <br/>

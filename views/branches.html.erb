@@ -10,8 +10,6 @@
     <% else %>
       <%= h b.full %>
       <a href="/a/branch/<%= h b.name %>">switch</a> &bull;
-      <a href="/a/merge_branch/<%= h b.name %>">merge</a>
-      <!-- &bull; <a href="/a/delete_branch/<%= h b.name %>">delete</a> -->
     <% end %>
     </li>
   <% end %>
@@ -21,6 +19,7 @@
 <article>
   <h1>New Branch</h1>
   <form method="post" action="/a/new_branch" class="niceform">
+    <%= csrf_tag %>
     <label for="name">name</label>
     <input type="text" name="branch" />
     <br />

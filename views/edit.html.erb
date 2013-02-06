@@ -1,37 +1,41 @@
 <article>
-  <form method="post" action="/e/<%= h @page.uri_encoded_name %>">
-    <aside>
-      <a href="/<%= h @page.uri_encoded_name %>" class="nav_link">back</a>
-      &bull; <a href="/a/file/upload/<%= h @page.uri_encoded_name %>" class="nav_link">attach</a>
-      <% if @page.tracked? %>
-        &bull; <a href="/h/<%= h @page.uri_encoded_name %>" class="nav_link">history</a>
-      <% end %>
-      &bull; <input type="submit" value="Save" class="submit" />
-    </aside>
-
-    <h1>Editing <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.uri_encoded_name %></a></h1>
-
-    <% if files = @page.attachments %>
-      <section class="attachments">
-        <h3>Attachments</h3>
-        <% files.each do |file| %>
-          <li><a href="<%= h file.link_path %>"><%= h file.name %></a>
-            <span class="detail">(<%= h file.size %>)</span>
-            <div class="attach-options">
-              <a href="<%= h file.delete_path %>">delete</a>
-              &bull; <a href="<%= h file.link_path %>">download</a>
-              <% if file.image? %>
-              &bull; <a href="#" onClick="$(edit_textarea).html($(edit_textarea).html() + '!<%= h file.link_path %>!');">insert &#187;</a>
-              <% else %>
-              &bull; <a href="#" onClick="$(edit_textarea).html($(edit_textarea).html() + '[<%= h file.name %>](<%= h file.link_path %>)');">insert &#187;</a>
-              <% end %>
-            </div>
-          </span>
-        <% end %>
-      </section>
+  <aside>
+    <a href="/<%= h @page.uri_encoded_name %>" class="nav_link">back</a>
+    &bull; <a href="/a/file/upload/<%= h @page.uri_encoded_name %>" class="nav_link">attach</a>
+    <% if @page.tracked? %>
+      &bull; <a href="/h/<%= h @page.uri_encoded_name %>" class="nav_link">history</a>
     <% end %>
+  </aside>
 
-    <textarea name="body" class="body"><%= h @page.raw_body %></textarea>
+  <h1>Editing <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.uri_encoded_name %></a></h1>
+
+  <% if files = @page.attachments %>
+    <section class="attachments">
+      <h3>Attachments</h3>
+      <% files.each do |file| %>
+        <li><a href="<%= h file.link_path %>"><%= h file.name %></a>
+          <span class="detail">(<%= h file.size %>)</span>
+          <div class="attach-options">
+            <form method="post" action="<%= h file.delete_path %>">
+              <%= csrf_tag %>
+              <input type="submit" value="delete" class="submit" />
+            </form>
+            &bull; <a href="<%= h file.link_path %>">download</a>
+            <% if file.image? %>
+            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '![](<%= h file.link_path %>)');">insert &#187;</a>
+            <% else %>
+            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h file.name %>](<%= h file.link_path %>)');">insert &#187;</a>
+            <% end %>
+          </div>
+        </span>
+      <% end %>
+    </section>
+  <% end %>
+
+  <form method="post" action="/e/<%= h @page.uri_encoded_name %>">
+    <%= csrf_tag %>
+    <p class="right"><input type="submit" value="Save" class="submit" /></p>
+    <textarea name="body" class="body" id="body"><%= h @page.raw_body %></textarea>
     <label for="message">Message:</label>
     <textarea name="message" rows="4" class="message"></textarea>
     <p class="right"><input type="submit" value="Save" class="submit" /></p>

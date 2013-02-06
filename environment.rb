@@ -1,11 +1,10 @@
-require 'rubygems'
 require 'bundler/setup'
+
+require 'uri'
 
 require 'git'
 require 'redcarpet'
 require 'rubypants'
-
-require 'uri'
 
 require './extensions'
 require './page'
@@ -35,6 +34,7 @@ end
 
 GIT_REPO = find_or_create_repo
 HOMEPAGE = 'home'
+SESSION_SECRET = IO.read('/dev/urandom', 32)
 
 $repo = Git.open(GIT_REPO)
 
