@@ -7,4 +7,3 @@
 .directory
 .*.kate-swp
 .bundle
-Gemfile.lock
