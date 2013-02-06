@@ -12,9 +12,7 @@ img { max-width: 100%; }
 
 body {
   /* one centered column of max 600px */
-  max-width: 600px; margin: 0em auto; padding: 2em;
-  font-family: "Cantarell", "Droid Sans", Arial, "Deja Vu Sans", "Bitstream Vera Sans", sans-serif;
-  font-size: 15px; line-height: 25px;
+  margin: 0em auto; padding: 2em;
 }
 
 
