@@ -38,10 +38,31 @@ label { font-size: .9em; }
 
 mark { background: #ffff99 }
 
+/*
+ * http://www.stylish-style.com/csstec/basic/b-table-deco.html
+ */
 table {
-  font-size: 0.9em;
-/*  width: 100%;*/
+        border-top:1px solid #663300;
+        border-left:1px solid #663300;
+        border-collapse:collapse;
+        border-spacing:0;
+        background-color:#ffffff;
+        empty-cells:show;
 }
+th{
+        border-right:1px solid #663300;
+        border-bottom:1px solid #663300;
+        color:#330000;
+        background-color:#996633;
+        background-position:left top;
+        padding:0.3em 1em;
+        text-align:center;
+}
+td{
+        border-right:1px solid #663300;
+        border-bottom:1px solid #663300;
+        padding:0.3em 1em;
+                                                                    }
 
 textarea {
   border: 1px solid #ccc;
