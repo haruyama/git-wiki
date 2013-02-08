@@ -7,7 +7,7 @@
     <% end %>
   </aside>
 
-  <h1>Editing <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.uri_encoded_name %></a></h1>
+  <h1>Editing <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.name %></a></h1>
 
   <% if files = @page.attachments %>
     <section class="attachments">
