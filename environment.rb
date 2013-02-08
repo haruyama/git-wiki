@@ -3,7 +3,7 @@ require 'bundler/setup'
 require 'uri'
 
 require 'git'
-require 'redcarpet'
+require 'facwparser'
 require 'rubypants'
 
 require './extensions'
