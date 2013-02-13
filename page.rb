@@ -3,7 +3,7 @@ class Page
   ATTACHMENTS_DIR = '_attachments'
 
   def initialize(name, rev = nil)
-    @name = name
+    @name = File.basename(name)
     @rev = rev
   end
 
