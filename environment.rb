@@ -1,6 +1,7 @@
 require 'bundler/setup'
 
 require 'uri'
+require 'securerandom'
 
 require 'git'
 require 'facwparser'
@@ -34,7 +35,7 @@ end
 
 GIT_REPO = find_or_create_repo
 HOMEPAGE = 'home'
-SESSION_SECRET = IO.read('/dev/urandom', 32)
+SESSION_SECRET = SecureRandom.random_bytes(32)
 
 $repo = Git.open(GIT_REPO)
 
