@@ -4,34 +4,34 @@ header, nav, article, section, footer, figure, aside { display: block; }
 html, body {/*background-color: #fbf9f7;*/ color: #404038;}
 
 html {
-  border-top: 4px solid #464141;
+        border-top: 4px solid #464141;
 }
 
 /* a responsive design trick: */
 img { max-width: 100%; }
 
 body {
-  /* one centered column of max 600px */
-  margin: 0em auto; padding: 2em;
+        /* one centered column of max 600px */
+        margin: 0em auto; padding: 2em;
 }
 
 
 a { color: #1a82bf; text-decoration: none; }
-  a:visited { color: #0e4061; }
-  a:hover { text-decoration: underline; }
+a:visited { color: #0e4061; }
+a:hover { text-decoration: underline; }
 
 code, pre { font-family: "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", "Inconsolata", "Consolas", monospace; }
 
 h1 { color: #333; /* margin: 24px 0 8px 0; */
-  font-weight: normal;
-  font-size: 2.6em;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+        font-weight: normal;
+        font-size: 2.6em;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
 }
 
 input[type=text] {
-  border: 1px solid #ccc;
-  font-size: 0.875em;
+        border: 1px solid #ccc;
+        font-size: 0.875em;
 }
 
 label { font-size: .9em; }
@@ -62,22 +62,22 @@ td{
         border-right:1px solid #663300;
         border-bottom:1px solid #663300;
         padding:0.3em 1em;
-                                                                    }
+}
 
 textarea {
-  border: 1px solid #ccc;
-  font-family: "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", "Inconsolata", "Consolas", monospace;
-  font-size: .9em;
-  padding: 5px;
+        border: 1px solid #ccc;
+        font-family: "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", "Inconsolata", "Consolas", monospace;
+        font-size: .9em;
+        padding: 5px;
 }
 
 ul, ol { padding: 0 0 1em 1.4em; }
 li ul, li ol { padding: 0 0 0 1.4em; } /* no vertical padding for nested lists */
 
 .cancel {
-  font-weight: normal;
-  text-decoration: none;
-  font-size: 14px;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 14px;
 }
 .cancel:before { content: "("; }
 .cancel:after { content: ")" }
@@ -90,30 +90,30 @@ article > h2 { font-size: 110%; color: #333; margin: 1.5em 0 1em; }
 /* style external links 
 article a[href^="http://"]:after,
 article a[href^="https://"]:after {
-  background-image: url(/external-link.png);
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-  content: '';
+background-image: url(/external-link.png);
+width: 12px;
+height: 12px;
+display: inline-block;
+content: '';
 }*/
 
 .delta {
-  font-size: 1.1em;
-  padding: 0;
+        font-size: 1.1em;
+        padding: 0;
 }
 
 .edit textarea {
-  display: block;
-  margin-bottom: 5px;
-  max-height: 300px;
-  min-width: 100%;
+        display: block;
+        margin-bottom: 5px;
+        max-height: 300px;
+        min-width: 100%;
 }
 
 /* header { background-color: #443B31; } */
 
 header nav a { display: inline; padding: 1px 6px; border-radius: 2px; color: white; text-decoration: none; font-weight: bold; }
-  header nav a:visited { color: white; }
-  header nav a:hover { background-color: #696969; color: #feb800; text-decoration: none; }
+header nav a:visited { color: white; }
+header nav a:hover { background-color: #696969; color: #feb800; text-decoration: none; }
 
 header nav ul, header nav li { display: inline; margin: 0; padding: 0; }
 
@@ -121,30 +121,30 @@ header nav { position: relative; }
 header nav ul li ul { position: absolute; left: 0; top: 90%; background: #696969; border-radius: 3px; width: 100%; text-align: center;}
 
 /*header, #footer {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  list-style-type: none;
-  padding: 4px;
-  text-align: right;
+border-top: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+list-style-type: none;
+padding: 4px;
+text-align: right;
 }*/
 
 
 
 .niceform label, .niceform input[type=text] {
-  display: block;
-  width: 200px;
-  float: left;
-  margin-bottom: 10px;
+        display: block;
+        width: 200px;
+        float: left;
+        margin-bottom: 10px;
 }
 
 .niceform label {
-  text-align: right;
-  width: 150px;
-  padding-right: 20px;
+        text-align: right;
+        width: 150px;
+        padding-right: 20px;
 }
 
 .niceform br {
-  clear: left;
+        clear: left;
 }
 
 .right { text-align: right; }
@@ -152,40 +152,40 @@ header nav ul li ul { position: absolute; left: 0; top: 90%; background: #696969
 .search_result { margin-bottom: 15px; }
 
 .search_result .match {
-  line-height: 1em;
-  margin-bottom: 15px;
+        line-height: 1em;
+        margin-bottom: 15px;
 }
 
 .search_term { color: #999; }
 
 .submit {
-  font-size: 1.2em;
-  font-weight: bold;
+        font-size: 1.2em;
+        font-weight: bold;
 }
 
 article aside {
-  float: right;
-  padding: 0.5em;
-  margin: 0 0 0.5em 0.5em;
-  background: #f0f0f0;
-  border-radius: 3px;
-  text-shadow: rgba(255,255,255,0.9) 1px 1px 0px;
+        float: right;
+        padding: 0.5em;
+        margin: 0 0 0.5em 0.5em;
+        background: #f0f0f0;
+        border-radius: 3px;
+        text-shadow: rgba(255,255,255,0.9) 1px 1px 0px;
 }
 
 article aside .details {
-  color: #888;
-  font-size: .85em;
-  margin-left: 0.3em;
+        color: #888;
+        font-size: .85em;
+        margin-left: 0.3em;
 }
 span.detail {
-  color: #888;
-  font-size: .85em;
+        color: #888;
+        font-size: .85em;
 }
 div.attach-options {
-  margin-left: 30px;
-  margin-bottom: 10px;
-  font-size: .85em;
-  color: #888;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        font-size: .85em;
+        color: #888;
 }
 
 textarea { width: 100%; }
@@ -193,18 +193,25 @@ textarea.body { height: 35em; margin-top: 1.5em; }
 textarea.message { height: 4em; }
 
 body > header {
-  clear: both;
-  background: #464141; color: white;
-  text-align: right; padding: 4px;
-  border-radius: 3px;
+        clear: both;
+        background: #464141; color: white;
+        text-align: right; padding: 4px;
+        border-radius: 3px;
 }
 
 footer {
-  clear: both;
-  border-top: 2px solid #464141; color: #464141;
-  text-align: right; padding: 4px; margin-top: 4em;
+        clear: both;
+        border-top: 2px solid #464141; color: #464141;
+        text-align: right; padding: 4px; margin-top: 4em;
 }
 
 #search_field { border: 1px solid #ccc;  color: #999; max-width: 100%; }
 
-
+/* http://andornot.blog.shinobi.jp/Entry/179/ */
+blockquote{
+        background-color: #ededed;
+        padding: 5px 5px 5px 5px;
+        border: #bbbbbb 1px solid;
+        border-left: #bbbbbb 5px solid;
+        margin: 3px 15px 3px 15px;
+}
