@@ -5,7 +5,7 @@ A wiki engine that uses a Git repository as its data store.
 ## Requirements
 
 * sinatra
-* shotgun
+* rack\_csrf
 * thin
 * haruyama/ruby-git
 * haruyama/facwparser
