@@ -4,12 +4,11 @@ A wiki engine that uses a Git repository as its data store.
 
 ## Requirements
 
-* rubygems
 * sinatra
-* redcarpet
-* rubypants
+* shotgun
 * thin
 * haruyama/ruby-git
+* haruyama/facwparser
 
 ## usage
 
@@ -19,3 +18,5 @@ A wiki engine that uses a Git repository as its data store.
 
 * XSS protection
 * CSRF protection
+* use [highlight.js](http://softwaremaniacs.org/soft/highlight/en/)
+* use Confluence Wiki Markup

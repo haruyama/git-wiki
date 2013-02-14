@@ -5,7 +5,6 @@ require 'securerandom'
 
 require 'git'
 require 'facwparser'
-require 'rubypants'
 
 require './extensions'
 require './page'
