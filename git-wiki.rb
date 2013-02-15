@@ -169,7 +169,7 @@ end
 
 # support methods
 def search_on_filename(search)
-  needle = search.as_wiki_link
+  needle = search
   pagenames = $repo.log.first.gtree.children.keys.map{|n| n.encode('UTF-8')}
   titles = {}
   pagenames.each do |page|

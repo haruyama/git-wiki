@@ -85,8 +85,7 @@ class Page
   end
 
   def version(rev)
-    data = blob.contents
-    RubyPants.new(render(data.wiki_linked)).to_html
+    render(blob.contents)
   end
 
   def blob
