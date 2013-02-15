@@ -25,6 +25,15 @@ helpers do
   def csrf_tag
     Rack::Csrf.csrf_tag(env)
   end
+
+  def escape_javascript(html_content)
+    return '' unless html_content
+    escaped = html_content.unpack('U*').map {|p| sprintf('\u%04x', p)}.join('')
+    escaped
+  end
+
+  alias_method :js_escape, :escape_javascript
+
 end
 
 get('/') { redirect "/#{HOMEPAGE}" }
