@@ -4,8 +4,7 @@ require 'uri'
 require 'securerandom'
 
 require 'git'
-require 'redcarpet'
-require 'rubypants'
+require 'facwparser'
 
 require './extensions'
 require './page'
@@ -36,6 +35,8 @@ end
 GIT_REPO = find_or_create_repo
 HOMEPAGE = 'home'
 SESSION_SECRET = SecureRandom.random_bytes(32)
+
+JIRA_BROWSE_URL = ENV['JIRA_BROWSE_URL'] || ''
 
 $repo = Git.open(GIT_REPO)
 

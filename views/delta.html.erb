@@ -1,9 +1,3 @@
-<% content_for :head do %>
-  <script src="/sh_main.min.js"></script>
-  <script src="/sh_diff.min.js"></script>
-  <link rel="stylesheet" href="/sh_style.css" type="text/css" media="screen" />
-<% end %>
-
 <h1>Diff of <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.uri_encoded_name %></a></h1>
 
 <nav class="sub_nav">
@@ -13,9 +7,7 @@
 </nav>
 
 <section class="content">
-  <pre class="sh_diff"><%= h @page.delta(params[:rev]) %></pre>
+<pre class="diff"><code>
+<%= h @page.delta(params[:rev]) %>
+</code></pre>
 </section>
-
-<script>
-  sh_highlightDocument();
-</script>

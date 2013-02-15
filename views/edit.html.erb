@@ -22,9 +22,9 @@
             </form>
             &bull; <a href="<%= h file.link_path %>">download</a>
             <% if file.image? %>
-            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '![](<%= h file.link_path %>)');">insert &#187;</a>
+            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '!<%= h (js_escape file.link_path) %>!');">insert &#187;</a>
             <% else %>
-            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h file.name %>](<%= h file.link_path %>)');">insert &#187;</a>
+            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h (js_escape file.name) %>|<%= h (js_escape file.link_path) %>]');">insert &#187;</a>
             <% end %>
           </div>
         </span>

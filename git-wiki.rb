@@ -5,6 +5,7 @@ require 'fileutils'
 require './environment'
 require 'sinatra'
 require 'sinatra/content_for'
+require "sinatra/reloader" if development?
 require 'rack/csrf'
 
 configure do
@@ -24,6 +25,15 @@ helpers do
   def csrf_tag
     Rack::Csrf.csrf_tag(env)
   end
+
+  def escape_javascript(html_content)
+    return '' unless html_content
+    escaped = html_content.unpack('U*').map {|p| sprintf('\u%04x', p)}.join('')
+    escaped
+  end
+
+  alias_method :js_escape, :escape_javascript
+
 end
 
 get('/') { redirect "/#{HOMEPAGE}" }
@@ -168,7 +178,7 @@ end
 
 # support methods
 def search_on_filename(search)
-  needle = search.as_wiki_link
+  needle = search
   pagenames = $repo.log.first.gtree.children.keys.map{|n| n.encode('UTF-8')}
   titles = {}
   pagenames.each do |page|

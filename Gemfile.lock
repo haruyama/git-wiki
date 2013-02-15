@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/haruyama/facwparser.git
+  revision: 15034a9942ba38c713b6506cf5faa23090466c34
+  branch: v0.0.3
+  specs:
+    facwparser (0.0.3)
+
+GIT
   remote: https://github.com/haruyama/ruby-git.git
   revision: e16625b7ff43df2aa1fcf62f7fb8624563751977
   specs:
@@ -7,23 +14,31 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    backports (2.8.2)
     daemons (1.1.9)
     eventmachine (1.0.0)
     rack (1.5.2)
     rack-protection (1.3.2)
       rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rack_csrf (2.4.0)
       rack (>= 0.9)
-    redcarpet (2.2.2)
-    rubypants (0.2.0)
-    shotgun (0.9)
-      rack (>= 1.0)
     sinatra (1.3.4)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
     sinatra-content-for (0.1)
       sinatra
+    sinatra-contrib (1.3.2)
+      backports (>= 2.0)
+      eventmachine
+      rack-protection
+      rack-test
+      sinatra (~> 1.3.0)
+      tilt (~> 1.3)
+    sinatra-reloader (1.0)
+      sinatra-contrib
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -34,11 +49,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  facwparser!
   git!
   rack_csrf
-  redcarpet
-  rubypants
-  shotgun
   sinatra
   sinatra-content-for
+  sinatra-reloader
   thin

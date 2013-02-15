@@ -16,7 +16,7 @@ class Page
   end
 
   def body
-    @body ||= RubyPants.new(render(raw_body.wiki_linked)).to_html
+    @body ||= render(raw_body)
   end
 
   def branch_name
@@ -85,8 +85,7 @@ class Page
   end
 
   def version(rev)
-    data = blob.contents
-    RubyPants.new(render(data.wiki_linked)).to_html
+    render(blob.contents)
   end
 
   def blob
@@ -188,10 +187,7 @@ class Page
   end
 
   def render(content)
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(:filter_html => true, :safe_links_only => true),
-                                          :autolink => true, :space_after_headers => true, :tables => true)
-
-    @markdown.render(content)
+    Facwparser.to_html(content, {'jira_browse_url' => JIRA_BROWSE_URL})
   end
 
 end
