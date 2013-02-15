@@ -10,5 +10,7 @@
 </nav>
 
 <section class="content">
-  <pre class="diff"><%= h @page.delta(params[:rev]) %></pre>
+  <pre class="diff"><code>
+<%= h @page.delta(params[:rev]) %>
+  </code></pre>
 </section>

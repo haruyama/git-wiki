@@ -187,7 +187,7 @@ class Page
   end
 
   def render(content)
-    Facwparser.to_html(content)
+    Facwparser.to_html(content, {'jira_browse_url' => JIRA_BROWSE_URL})
   end
 
 end
