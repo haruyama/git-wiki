@@ -7,9 +7,9 @@
     <ul>
       <% @pages.each do |page| %>
         <li>
-          <strong><a href="/<%= h page.uri_encoded_name %>"><%= h page.name %></a></strong> &mdash;
-          <a href="/e/<%= h page.uri_encoded_name %>">edit</a> &bull;
-          <a href="/h/<%= h page.uri_encoded_name %>">history</a>
+          <strong><a href="/<%= u page.name %>"><%= h page.name %></a></strong> &mdash;
+          <a href="/e/<%= u page.name %>">edit</a> &bull;
+          <a href="/h/<%= u page.name %>">history</a>
         </li>
       <% end %>
     </ul>

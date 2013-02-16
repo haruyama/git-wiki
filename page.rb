@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require File.dirname(__FILE__) + '/environment'
 
 require 'fileutils'
@@ -39,6 +40,10 @@ class Page
     end
   end
 
+  def rev_or_master
+    @rev || 'master'
+  end
+
   def update(content, message = nil)
     File.open(filename, 'w') { |f| f << content }
     commit_message = tracked? ? "edited #{@name}" : "created #{@name}"
@@ -58,21 +63,25 @@ class Page
     $repo.ls_files.keys.include?(@name)
   end
 
+  def children
+    @children ||= $repo.ls_files(@name + '／*').keys
+  end
+
   def history
     return nil unless tracked?
     @history ||= $repo.log.path(@name)
   end
 
   def delta(rev)
-    $repo.diff(rev, @rev || 'master').path(@name).patch
+    $repo.diff(rev, rev_or_master).path(@name).patch
   end
 
   def commit
-    @commit ||= $repo.log.object(@rev || 'master').path(@name).first
+    @commit ||= $repo.log.object(rev_or_master).path(@name).first
   end
 
   def previous_commit
-    @previous_commit ||= $repo.log(2).object(@rev || 'master').path(@name).to_a[1]
+    @previous_commit ||= $repo.log(2).object(rev_or_master).path(@name).to_a[1]
   end
 
   def next_commit
@@ -93,7 +102,7 @@ class Page
   end
 
   def blob
-    @blob ||= ($repo.gblob(@rev + ':' + @name))
+    @blob ||= ($repo.gblob(rev_or_master + ':' + @name))
   end
 
   # save a file into the _attachments directory
@@ -184,10 +193,6 @@ class Page
       else                     "%.2f MB"  % (size / (1024 * 1024.0))
       end.sub(/([0-9])\.?0+ /, '\1 ' )
     end
-  end
-
-  def uri_encoded_name
-    URI.encode(@name)
   end
 
   def render(content)

@@ -2,16 +2,16 @@
 
   <aside>
     <% if params[:rev] %>
-      <a href="/<%= h @page.uri_encoded_name %>" class="nav_link">current</a> &bull;
+      <a href="/<%= u @page.name %>" class="nav_link">current</a> &bull;
     <% else %>
-      <a href="/e/<%= h @page.uri_encoded_name %>" class="nav_link">edit</a> &bull;
+      <a href="/e/<%= u @page.name %>" class="nav_link">edit</a> &bull;
     <% end %>
-    <a href="/h/<%= h @page.uri_encoded_name %>" class="nav_link">history</a>
+    <a href="/h/<%= u @page.name %>" class="nav_link">history</a>
     <% if @page.previous_commit %>
-      &bull; <a href="/h/<%= h @page.uri_encoded_name %>/<%= h @page.previous_commit %>" class="nav_link">older</a>
+      &bull; <a href="/h/<%= u @page.name %>/<%= h @page.previous_commit %>" class="nav_link">older</a>
     <% end %>
     <% if @page.next_commit %>
-      &bull; <a href="/h/<%= h @page.uri_encoded_name %>/<%= h @page.next_commit %>" class="nav_link">newer</a>
+      &bull; <a href="/h/<%= u @page.name %>/<%= h @page.next_commit %>" class="nav_link">newer</a>
     <% end %>
 
     <section class="details">
@@ -24,4 +24,14 @@
   <header><h1><%= h @page.name %></h1></header>
 
   <%= @page.body %>
+
+  <% if !@page.children.empty? %>
+    <h1>Children pages of <a href="<%=u @page.name%>"><%= h @page.name %></a></h1>
+    <ul>
+      <% @page.children.each do |c| %>
+        <li><a href="<%= u c %>"><%= h c %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
 </article>

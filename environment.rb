@@ -1,6 +1,5 @@
 require 'bundler/setup'
 
-require 'uri'
 require 'securerandom'
 
 require 'git'

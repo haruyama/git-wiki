@@ -2,7 +2,7 @@
 
 <section>
   <h2>New File Upload</h2>
-  <form method="post" action="/a/file/upload/<%= h @page.uri_encoded_name %>"
+  <form method="post" action="/a/file/upload/<%= u @page.name %>"
         class="niceform" enctype="multipart/form-data">
     <%= csrf_tag %>
     <label for="name">name</label>
