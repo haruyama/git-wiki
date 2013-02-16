@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 
-require 'fileutils'
-require './environment'
+require File.dirname(__FILE__) + '/environment'
+
 require 'sinatra'
 require 'sinatra/content_for'
 require "sinatra/reloader" if development?

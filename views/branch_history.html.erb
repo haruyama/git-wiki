@@ -12,14 +12,9 @@
     <li>
       <% if commit != @history.first %>
         <%= h commit.sha %>
-        <script type="text/javascript">
-          document.write(time_ago_in_words(<%= commit.date.to_json %>) + ' ago');
-          </script>
-        </a>
+        <%= h commit.date %>
       <% else %>
-        <script type="text/javascript">
-        document.write(time_ago_in_words(<%= commit.date.to_json %>) + ' ago');
-        </script>
+        <%= h commit.date %>
       <% end %>
       &mdash;
       <%= h commit.message %>

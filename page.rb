@@ -1,3 +1,7 @@
+require File.dirname(__FILE__) + '/environment'
+
+require 'fileutils'
+
 class Page
   attr_reader :name
   ATTACHMENTS_DIR = '_attachments'
@@ -60,7 +64,7 @@ class Page
   end
 
   def delta(rev)
-    $repo.diff(previous_commit, rev).path(@name).patch
+    $repo.diff(rev, @rev || 'master').path(@name).patch
   end
 
   def commit
@@ -80,7 +84,7 @@ class Page
       @next_commit ||= history.to_a[matching_index - 1]
     end
   rescue
-    # FIXME weird catch-all error handling
+#    FIXME weird catch-all error handling
     @next_commit ||= nil
   end
 

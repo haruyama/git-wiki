@@ -15,11 +15,9 @@
     <% end %>
 
     <section class="details">
-      <script type="text/javascript">
-        document.write(time_ago_in_words(<%= h @page.updated_at.to_json %>) + ' ago');
-      </script>
-      <br />
-      <%= h $repo.current_branch %> branch
+    <%= h @page.updated_at %>
+    <br />
+    <%= h $repo.current_branch %> branch
     </section>
   </aside>
 
