@@ -26,7 +26,7 @@
   <%= @page.body %>
 
   <% if !@page.children.empty? %>
-    <h1>Children pages of <a href="<%=u @page.name%>"><%= h @page.name %></a></h1>
+    <h1>Children of <a href="<%=u @page.name%>"><%= h @page.name %></a></h1>
     <ul>
       <% @page.children.each do |c| %>
         <li><a href="<%= u c %>"><%= h c %></li>
