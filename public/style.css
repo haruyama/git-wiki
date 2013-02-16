@@ -185,6 +185,10 @@ div.attach-options {
         font-size: .85em;
         color: #888;
 }
+div.attach-options form {
+        display: inline;
+        font-size: .5em;
+}
 
 textarea { width: 100%; }
 textarea.body { height: 35em; margin-top: 1.5em; }

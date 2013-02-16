@@ -16,16 +16,16 @@
         <li><a href="<%= h file.link_path %>"><%= h file.name %></a>
           <span class="detail">(<%= h file.size %>)</span>
           <div class="attach-options">
+            &bull; <a href="<%= h file.link_path %>">download</a>
+            <% if file.image? %>
+              &bull; <a href="#" onClick="$('#body').val($('#body').val() + '!<%= h (js_escape file.link_path) %>!');">insert &#187;</a>
+            <% else %>
+              &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h (js_escape file.name) %>|<%= h (js_escape file.link_path) %>]');">insert &#187;</a>
+            <% end %>
             <form method="post" action="<%= h file.delete_path %>">
               <%= csrf_tag %>
               <input type="submit" value="delete" class="submit" />
             </form>
-            &bull; <a href="<%= h file.link_path %>">download</a>
-            <% if file.image? %>
-            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '!<%= h (js_escape file.link_path) %>!');">insert &#187;</a>
-            <% else %>
-            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h (js_escape file.name) %>|<%= h (js_escape file.link_path) %>]');">insert &#187;</a>
-            <% end %>
           </div>
         </span>
       <% end %>
