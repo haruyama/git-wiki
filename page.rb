@@ -6,6 +6,7 @@ require 'fileutils'
 class Page
   attr_reader :name
   ATTACHMENTS_DIR = '_attachments'
+  LOGICAL_PATH_SEPARATOR = '／'
 
   def initialize(name, rev = nil)
     @name = File.basename(name)
@@ -64,7 +65,7 @@ class Page
   end
 
   def children
-    @children ||= $repo.ls_files(@name + '／*').keys
+    @children ||= $repo.ls_files(@name + LOGICAL_PATH_SEPARATOR + '*').keys
   end
 
   def history
