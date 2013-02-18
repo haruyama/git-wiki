@@ -3,12 +3,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><%= h @title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/print.css" type="text/css" media="print" />
     <link rel="stylesheet" href="/highlight.js/styles/github.css" type="text/css" media="screen" />
     <script src="/app.js"></script>
     <script src="/jquery-1.9.0.min.js"></script>
     <script src="/highlight.js/highlight.pack.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width" />
@@ -19,7 +22,7 @@
       <form method="get" action="/a/search">
         <nav>
           <a href="/" class="nav_link">home</a>
-          <%= h @menu.body rescue nil %>
+          <%= @menu.body rescue nil %>
           <input type="search" id="search_field" name="search" size="30" placeholder="search... [alt+s]" accesskey="S" autofocus />
           <ul><li><a href="/wiki">wiki</a>
             <ul><li><a href="/a/branches" class="nav_link">branches</a></li>
@@ -32,6 +35,6 @@
       </form>
     </header>
     <%= yield %>
-    <footer>powered by a <a href="http://github.com/sr/git-wiki/network">git-wiki</a> fork</footer>
+    <footer>powered by a <a href="http://github.com/haruyama/git-wiki">haruyama/git-wiki</a></footer>
   </body>
 </html>

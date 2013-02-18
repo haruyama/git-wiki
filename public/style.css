@@ -69,8 +69,7 @@ textarea {
         padding: 5px;
 }
 
-ul, ol { padding: 0 0 1em 1.4em; }
-li ul, li ol { padding: 0 0 0 1.4em; } /* no vertical padding for nested lists */
+ul, ol { list-style-type: disc; }
 
 .cancel {
         font-weight: normal;
@@ -190,7 +189,12 @@ div.attach-options form {
         font-size: .5em;
 }
 
-textarea { width: 100%; }
+textarea {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+}
 textarea.body { height: 35em; margin-top: 1.5em; }
 textarea.message { height: 4em; }
 
@@ -219,5 +223,6 @@ blockquote {
 }
 
 pre.noformat {
+        border-color: black;
         border-style: dotted;
 }
