@@ -1,12 +1,6 @@
 /* html5 goodness */
 header, nav, article, section, footer, figure, aside { display: block; }
 
-html, body {/*background-color: #fbf9f7;*/ color: #404038;}
-
-html {
-        border-top: 4px solid #464141;
-}
-
 /* a responsive design trick: */
 img { max-width: 100%; }
 
@@ -14,27 +8,6 @@ body {
         /* one centered column of max 600px */
         margin: 0em auto; padding: 2em;
 }
-
-
-a { color: #1a82bf; text-decoration: none; }
-a:visited { color: #0e4061; }
-a:hover { text-decoration: underline; }
-
-h1 { color: #333; /* margin: 24px 0 8px 0; */
-        font-weight: normal;
-        font-size: 2.6em;
-        margin-top: 1.5em;
-        margin-bottom: 1em;
-}
-
-input[type=text] {
-        border: 1px solid #ccc;
-        font-size: 0.875em;
-}
-
-label { font-size: .9em; }
-
-mark { background: #ffff99 }
 
 /*
  * http://www.stylish-style.com/csstec/basic/b-table-deco.html
@@ -80,9 +53,6 @@ ul, ol { list-style-type: disc; }
 .cancel:after { content: ")" }
 
 .clearer { clear: both; }
-
-article > h1 { font-size: 160%; margin: 1.5em 0 1em; }
-article > h2 { font-size: 110%; color: #333; margin: 1.5em 0 1em; }
 
 /* style external links 
 article a[href^="http://"]:after,
