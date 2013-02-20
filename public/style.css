@@ -19,6 +19,7 @@ table {
         border-spacing:0;
         background-color:#ffffff;
         empty-cells:show;
+        margin: 1em;
 }
 th{
         border-right:1px solid #663300;
