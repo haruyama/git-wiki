@@ -43,8 +43,6 @@ textarea {
         padding: 5px;
 }
 
-ul, ol { list-style-type: disc; }
-
 .cancel {
         font-weight: normal;
         text-decoration: none;
