@@ -1,12 +1,14 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 
-require 'fileutils'
-require './environment'
+require File.dirname(__FILE__) + '/environment'
+
 require 'sinatra'
 require 'sinatra/content_for'
 require "sinatra/reloader" if development?
 require 'rack/csrf'
+
+require 'uri'
 
 configure do
   set :app_file, __FILE__
@@ -34,16 +36,21 @@ helpers do
 
   alias_method :js_escape, :escape_javascript
 
+  def uri_encode(c)
+    URI.encode(c)
+  end
+
+  alias_method :u, :uri_encode
 end
 
-get('/') { redirect "/#{HOMEPAGE}" }
+get('/') { redirect "/#{u HOMEPAGE}" }
 
 # page paths
 
 get '/:page' do
   @menu = Page.new("menu")
   @page = Page.new(params[:page])
-  @page.tracked? ? show(:show, @page.name) : redirect('/e/' + @page.uri_encoded_name)
+  @page.tracked? ? show(:show, @page.name) : redirect('/e/' + u(@page.name))
 end
 
 get '/:page/raw' do
@@ -61,7 +68,7 @@ post '/e/:page' do
   @menu = Page.new("menu")
   @page = Page.new(params[:page])
   @page.update(params[:body], params[:message])
-  redirect '/' + @page.uri_encoded_name
+  redirect '/' + u(@page.name)
 end
 
 get '/h/:page' do
@@ -112,7 +119,7 @@ end
 
 get '/a/branch/:branch' do
   $repo.checkout(params[:branch])
-  redirect '/' + HOMEPAGE
+  redirect '/' + u(HOMEPAGE)
 end
 
 get '/a/history' do
@@ -162,13 +169,13 @@ end
 post '/a/file/upload/:page' do
   @page = Page.new(params[:page])
   @page.save_file(params[:file], params[:name])
-  redirect '/e/' + @page.name
+  redirect '/e/' + u(@page.name)
 end
 
 post '/a/file/delete/:page/:file.:ext' do
   @page = Page.new(params[:page])
   @page.delete_file(params[:file] + '.' + params[:ext])
-  redirect '/e/' + @page.uri_encoded_name
+  redirect '/e/' + u(@page.name)
 end
 
 get '/_attachment/:page/:file.:ext' do
@@ -192,7 +199,7 @@ end
 
 # returns an absolute url
 def page_url(page)
-  "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/#{URI.encode(page)}"
+  "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/#{u(page)}"
 end
 
 private

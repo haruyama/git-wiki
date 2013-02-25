@@ -1,13 +1,13 @@
 <article>
   <aside>
-    <a href="/<%= h @page.uri_encoded_name %>" class="nav_link">back</a>
-    &bull; <a href="/a/file/upload/<%= h @page.uri_encoded_name %>" class="nav_link">attach</a>
+    <a href="/<%= u @page.name %>" class="nav_link">back</a>
+    &bull; <a href="/a/file/upload/<%= u @page.name %>" class="nav_link">attach</a>
     <% if @page.tracked? %>
-      &bull; <a href="/h/<%= h @page.uri_encoded_name %>" class="nav_link">history</a>
+      &bull; <a href="/h/<%= u @page.name %>" class="nav_link">history</a>
     <% end %>
   </aside>
 
-  <h1>Editing <a href="/<%= h @page.uri_encoded_name %>"><%= h @page.name %></a></h1>
+  <h1>Editing <a href="/<%= u @page.name %>"><%= h @page.name %></a></h1>
 
   <% if files = @page.attachments %>
     <section class="attachments">
@@ -16,23 +16,23 @@
         <li><a href="<%= h file.link_path %>"><%= h file.name %></a>
           <span class="detail">(<%= h file.size %>)</span>
           <div class="attach-options">
+            &bull; <a href="<%= h file.link_path %>">download</a>
+            <% if file.image? %>
+              &bull; <a href="#" onClick="$('#body').val($('#body').val() + '!<%= h (js_escape file.link_path) %>!');">insert &#187;</a>
+            <% else %>
+              &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h (js_escape file.name) %>|<%= h (js_escape file.link_path) %>]');">insert &#187;</a>
+            <% end %>
             <form method="post" action="<%= h file.delete_path %>">
               <%= csrf_tag %>
               <input type="submit" value="delete" class="submit" />
             </form>
-            &bull; <a href="<%= h file.link_path %>">download</a>
-            <% if file.image? %>
-            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '!<%= h (js_escape file.link_path) %>!');">insert &#187;</a>
-            <% else %>
-            &bull; <a href="#" onClick="$('#body').val($('#body').val() + '[<%= h (js_escape file.name) %>|<%= h (js_escape file.link_path) %>]');">insert &#187;</a>
-            <% end %>
           </div>
         </span>
       <% end %>
     </section>
   <% end %>
 
-  <form method="post" action="/e/<%= h @page.uri_encoded_name %>">
+  <form method="post" action="/e/<%= u @page.name %>">
     <%= csrf_tag %>
     <p class="right"><input type="submit" value="Save" class="submit" /></p>
     <textarea name="body" class="body" id="body"><%= h @page.raw_body %></textarea>

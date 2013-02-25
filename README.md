@@ -22,3 +22,15 @@ A wiki engine that uses a Git repository as its data store.
 * CSRF protection
 * use [highlight.js](http://softwaremaniacs.org/soft/highlight/en/)
 * use Confluence (3.5 and earlier) Wiki Markup
+
+## License
+
+The MIT License
+ Copyright (C) 2004 Sam Hocevar
+ Copyright (C) HARUYAMA Seigo
+
+This system includes following products. I re-distribute them under each licence.
+
+* [jQuery version 1.9.0](http://jquery.com/)
+* [Twitter Bootstrap version 2.3.0](http://twitter.github.com/bootstrap/)
+* [highlight.js version 7.3](http://softwaremaniacs.org/soft/highlight/en/)
