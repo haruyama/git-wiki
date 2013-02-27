@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/haruyama/facwparser.git
-  revision: 3f4963faf6fbf987bf3b9f1c7c89cc87e4fd85e3
-  branch: v0.0.8
+  revision: d8310500f1d57ea7a7421ebb6f214dac5620b2e4
+  branch: v0.0.9
   specs:
-    facwparser (0.0.7)
+    facwparser (0.0.9)
 
 GIT
   remote: https://github.com/haruyama/ruby-git.git
