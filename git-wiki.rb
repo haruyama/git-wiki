@@ -202,6 +202,10 @@ def page_url(page)
   "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/#{u(page)}"
 end
 
+def breadcrumbs_html(page)
+  page.breadcrumbs.map{ |b| %Q{<a href="/#{u b[1]}">#{h b[0]}</a>}}.join(Page::LOGICAL_PATH_SEPARATOR)
+end
+
 private
 
 def show(template, title)

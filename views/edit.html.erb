@@ -7,7 +7,8 @@
     <% end %>
   </aside>
 
-  <h1>Editing <a href="/<%= u @page.name %>"><%= h @page.name %></a></h1>
+  <header><h1>Editing <%= breadcrumbs_html(@page) %></h1></header>
+  <hr>
 
   <% if files = @page.attachments %>
     <section class="attachments">

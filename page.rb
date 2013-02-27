@@ -13,6 +13,10 @@ class Page
     @rev = rev
   end
 
+  def self.logical_path_separator
+    LOGICAL_PATH_SEPARATOR
+  end
+
   def filename
     @filename ||= File.join(GIT_REPO, @name)
   end
@@ -30,7 +34,19 @@ class Page
   end
 
   def updated_at
-    commit.committer_date
+    commit ? commit.committer_date : ''
+  end
+
+  def breadcrumbs
+    parent = nil
+    @breadcrumbs ||= @name.split(LOGICAL_PATH_SEPARATOR).map{ |e|
+      if parent
+        parent += LOGICAL_PATH_SEPARATOR + e
+      else
+        parent = e
+      end
+      [e, parent]
+    }
   end
 
   def raw_body
