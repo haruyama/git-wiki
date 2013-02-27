@@ -81,7 +81,10 @@ class Page
   end
 
   def children
-    @children ||= $repo.ls_files(@name + LOGICAL_PATH_SEPARATOR + '*').keys
+    return @children if @children
+    decendants = $repo.ls_files(@name + LOGICAL_PATH_SEPARATOR + '*').keys
+    level = @name.count(LOGICAL_PATH_SEPARATOR) + 1
+    @children ||= decendants.select{ |e| e.count(LOGICAL_PATH_SEPARATOR) == level }
   end
 
   def history
