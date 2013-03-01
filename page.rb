@@ -9,7 +9,7 @@ class Page
   LOGICAL_PATH_SEPARATOR = '／'
 
   def initialize(name, rev = nil)
-    @name = File.basename(name)
+    @name = File.basename(name).sub(/#{LOGICAL_PATH_SEPARATOR}$/, '')
     @rev = rev
   end
 
