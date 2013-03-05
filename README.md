@@ -32,5 +32,5 @@ The MIT License
 This system includes following products. I re-distribute them under each licence.
 
 * [jQuery version 1.9.0](http://jquery.com/)
-* [Twitter Bootstrap version 2.3.0](http://twitter.github.com/bootstrap/)
+* [Twitter Bootstrap version 2.3.1](http://twitter.github.com/bootstrap/)
 * [highlight.js version 7.3](http://softwaremaniacs.org/soft/highlight/en/)
