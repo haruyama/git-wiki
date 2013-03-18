@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/haruyama/facwparser.git
-  revision: 28371ca534e2b2a006235f39ff1b2b6e20c92c67
+  revision: c9c09602caba755aea3d9eb10ca4ede6a059e035
   branch: v0.1.0
   specs:
     facwparser (0.1.0)
@@ -18,13 +18,13 @@ GEM
     daemons (1.1.9)
     eventmachine (1.0.3)
     rack (1.5.2)
-    rack-protection (1.4.0)
+    rack-protection (1.5.0)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rack_csrf (2.4.0)
       rack (>= 0.9)
-    sinatra (1.3.5)
+    sinatra (1.3.6)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -43,7 +43,7 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
-    tilt (1.3.5)
+    tilt (1.3.6)
 
 PLATFORMS
   ruby
