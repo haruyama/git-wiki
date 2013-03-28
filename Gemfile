@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
-gem 'sinatra-content-for'
+gem 'sinatra-contrib'
 gem 'sinatra-reloader'
 gem 'thin'
 gem 'rack_csrf'
