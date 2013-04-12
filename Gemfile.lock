@@ -35,13 +35,11 @@ GEM
       rack-test
       sinatra (~> 1.4.2)
       tilt (~> 1.3)
-    sinatra-reloader (1.0)
-      sinatra-contrib
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
-    tilt (1.3.6)
+    tilt (1.3.7)
 
 PLATFORMS
   ruby
@@ -52,5 +50,4 @@ DEPENDENCIES
   rack_csrf
   sinatra
   sinatra-contrib
-  sinatra-reloader
   thin

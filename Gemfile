@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'sinatra-reloader'
 gem 'thin'
 gem 'rack_csrf'
 gem 'git', :git => 'https://github.com/haruyama/ruby-git.git'
