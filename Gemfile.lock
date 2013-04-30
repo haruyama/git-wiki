@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/haruyama/facwparser.git
-  revision: c9c09602caba755aea3d9eb10ca4ede6a059e035
+  revision: cff716170a1bfdec0d150864c9269a7c32c57ecf
   branch: v0.1.0
   specs:
     facwparser (0.1.0)
