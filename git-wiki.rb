@@ -5,15 +5,15 @@ require File.dirname(__FILE__) + '/environment'
 
 require 'sinatra'
 require 'sinatra/content_for'
-require "sinatra/reloader" if development?
+require 'sinatra/reloader' if development?
 require 'rack/csrf'
 
 require 'uri'
 
 configure do
   set :app_file, __FILE__
-  use Rack::Session::Cookie, :secret => SESSION_SECRET
-  use Rack::Csrf, :raise => true
+  use Rack::Session::Cookie, secret: SESSION_SECRET
+  use Rack::Csrf,            raise: true
 end
 
 helpers do
@@ -30,7 +30,7 @@ helpers do
 
   def escape_javascript(html_content)
     return '' unless html_content
-    escaped = html_content.unpack('U*').map {|p| sprintf('\u%04x', p)}.join('')
+    escaped = html_content.unpack('U*').map { |p| sprintf('\u%04x', p) }.join('')
     escaped
   end
 
@@ -48,37 +48,37 @@ get('/') { redirect "/#{u HOMEPAGE}" }
 # page paths
 
 get '/:page' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @page = Page.new(params[:page])
   @page.tracked? ? show(:show, @page.name) : redirect('/e/' + u(@page.name))
 end
 
 get '/:page/raw' do
   @page = Page.new(params[:page])
-  send_data @page.raw_body, :type => 'text/plain', :disposition => 'inline'
+  send_data @page.raw_body, type: 'text/plain', disposition: 'inline'
 end
 
 get '/e/:page' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @page = Page.new(params[:page])
   show :edit, "Editing #{@page.name}"
 end
 
 post '/e/:page' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @page = Page.new(params[:page])
   @page.update(params[:body], params[:message])
   redirect '/' + u(@page.name)
 end
 
 get '/h/:page' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @page = Page.new(params[:page])
   show :history, "History of #{@page.name}"
 end
 
 get '/h/:page/:rev' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @page = Page.new(params[:page], params[:rev])
   show :show, "#{@page.name} (version #{params[:rev]})"
 end
@@ -93,7 +93,7 @@ end
 get '/a/list' do
   pages = $repo.log.first.gtree.children
   @menu = Page.new("menu")
-  @pages = pages.select { |f,bl| f[0,1] != '_'}.sort.map { |name, blob| Page.new(name) }
+  @pages = pages.select { |f,bl| f[0,1] != '_' }.sort.map { |name, blob| Page.new(name) }
   show(:list, 'Listing pages')
 end
 
@@ -107,14 +107,14 @@ end
 get '/a/tarball' do
   content_type 'application/x-gzip'
   headers 'Content-Disposition' => 'filename=archive.tgz'
-  archive = $repo.archive('HEAD', nil, :format => 'tgz', :prefix => 'wiki/')
+  archive = $repo.archive('HEAD', nil, format: 'tgz', prefix: 'wiki/')
   File.open(archive).read
 end
 
 get '/a/branches' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @branches = $repo.branches
-  show :branches, "Branches List"
+  show :branches, 'Branches List'
 end
 
 get '/a/branch/:branch' do
@@ -123,9 +123,9 @@ get '/a/branch/:branch' do
 end
 
 get '/a/history' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @history = $repo.log
-  show :branch_history, "Branch History"
+  show :branch_history, 'Branch History'
 end
 
 post '/a/new_branch' do
@@ -134,7 +134,7 @@ post '/a/new_branch' do
   if params[:type] == 'blank'
     # clear out the branch
     $repo.chdir do
-      Dir.glob("*").each do |f|
+      Dir.glob('*').each do |f|
         File.unlink(f)
         $repo.remove(f)
       end
@@ -152,10 +152,10 @@ post '/a/new_remote' do
 end
 
 get '/a/search' do
-  @menu = Page.new("menu")
+  @menu = Page.new('menu')
   @search = params[:search]
   @titles = search_on_filename(@search)
-  @grep = $repo.grep(@search, nil, :ignore_case => true)
+  @grep = $repo.grep(@search, nil, ignore_case: true)
   show :search, 'Search Results'
 end
 
@@ -186,7 +186,7 @@ end
 # support methods
 def search_on_filename(search)
   needle = search
-  pagenames = $repo.log.first.gtree.children.keys.map{|n| n.encode('UTF-8')}
+  pagenames = $repo.log.first.gtree.children.keys.map { |n| n.encode('UTF-8') }
   titles = {}
   pagenames.each do |page|
     next unless page.include? needle
@@ -203,7 +203,7 @@ def page_url(page)
 end
 
 def breadcrumbs_html(page)
-  page.breadcrumbs.map{ |b| %Q{<a href="/#{u b[1]}">#{h b[0]}</a>}}.join(Page::LOGICAL_PATH_SEPARATOR)
+  page.breadcrumbs.map { |b| %Q(<a href="/#{u b[1]}">#{h b[0]}</a>) }.join(Page::LOGICAL_PATH_SEPARATOR)
 end
 
 private
@@ -216,7 +216,7 @@ end
 def touchfile
   # adds meta file to repo so we have somthing to commit initially
   $repo.chdir do
-    f = File.new(".meta",  "w+")
+    f = File.new('.meta',  'w+')
     f.puts($repo.current_branch)
     f.close
     $repo.add('.meta')

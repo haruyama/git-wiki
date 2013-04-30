@@ -39,7 +39,7 @@ class Page
 
   def breadcrumbs
     parent = nil
-    @breadcrumbs ||= @name.split(LOGICAL_PATH_SEPARATOR).map{ |e|
+    @breadcrumbs ||= @name.split(LOGICAL_PATH_SEPARATOR).map { |e|
       if parent
         parent += LOGICAL_PATH_SEPARATOR + e
       else
@@ -72,7 +72,8 @@ class Page
       # FIXME I don't like this, why is there a catchall here?
       nil
     end
-    @body = nil; @raw_body = nil
+    @body     = nil
+    @raw_body = nil
     @body
   end
 
@@ -84,7 +85,7 @@ class Page
     return @children if @children
     decendants = $repo.ls_files(@name + LOGICAL_PATH_SEPARATOR + '*').keys
     level = @name.count(LOGICAL_PATH_SEPARATOR) + 1
-    @children ||= decendants.select{ |e| e.count(LOGICAL_PATH_SEPARATOR) == level }
+    @children ||= decendants.select { |e| e.count(LOGICAL_PATH_SEPARATOR) == level }
   end
 
   def history
@@ -105,7 +106,7 @@ class Page
   end
 
   def next_commit
-    if (self.history.first.sha == self.commit.sha)
+    if self.history.first.sha == self.commit.sha
       @next_commit ||= nil
     else
       matching_index = nil
@@ -132,7 +133,7 @@ class Page
     else
       filename = file[:filename]
     end
-    FileUtils.mkdir_p(attach_dir) if !File.exists?(attach_dir)
+    FileUtils.mkdir_p(attach_dir) unless File.exists?(attach_dir)
     new_file = File.join(attach_dir, filename)
 
     f = File.new(new_file, 'w')
@@ -199,19 +200,25 @@ class Page
     def image?
       ext = File.extname(@path)
       case ext
-      when '.png', '.jpg', '.jpeg', '.gif'; return true
-      else; return false
+      when '.png', '.jpg', '.jpeg', '.gif'
+        return true
+      else
+        return false
       end
     end
 
     def size
       size = File.size(@path).to_i
       case
-      when size.to_i == 1;     "1 Byte"
-      when size < 1024;        "%d Bytes" % size
-      when size < (1024*1024); "%.2f KB"  % (size / 1024.0)
-      else                     "%.2f MB"  % (size / (1024 * 1024.0))
-      end.sub(/([0-9])\.?0+ /, '\1 ' )
+      when size.to_i == 1
+        '1 Byte'
+      when size < 1024
+        '%d Bytes' % size
+      when size < (1024 * 1024)
+        '%.2f KB'  % (size / 1024.0)
+      else
+        '%.2f MB'  % (size / (1024 * 1024.0))
+      end.sub(/([0-9])\.?0+ /, '\1 ')
     end
   end
 
@@ -220,4 +227,3 @@ class Page
   end
 
 end
-

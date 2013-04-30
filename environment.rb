@@ -16,7 +16,7 @@ def is_repo?(location)
 end
 
 def find_repo(locations = REPO_LOCATIONS)
-  locations.detect do |location|
+  locations.find do |location|
     is_repo?(location)
   end
 end
