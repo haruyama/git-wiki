@@ -14,6 +14,7 @@ A wiki engine that uses a Git repository as its data store.
 
 ## usage
 
+% bundle
 % thin start
 
 ## What is different in this fork?
@@ -31,6 +32,6 @@ The MIT License
 
 This system includes following products. I re-distribute them under each licence.
 
-* [jQuery version 1.9.1](http://jquery.com/)
+* [jQuery version 2.0.1](http://jquery.com/)
 * [Twitter Bootstrap version 2.3.1](http://twitter.github.com/bootstrap/)
 * [highlight.js version 7.3](http://softwaremaniacs.org/soft/highlight/en/)
